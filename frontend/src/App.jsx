@@ -14,7 +14,7 @@ function App() {
     const formData = new FormData()
     formData.append("file", file)
     try {
-      const resp = await fetch("http://127.0.0.1:8000/api/scan", { method: "POST", body: formData })
+      const resp = await fetch("https://vedansh0110-sentinel-ai-backend.hf.space/api/scan", { method: "POST", body: formData })
       setResults(await resp.json())
     } finally {
       setLoading(false)
@@ -25,7 +25,7 @@ function App() {
     if (!liveCode.trim()) return
     setLoading(true)
     try {
-      const resp = await fetch("http://127.0.0.1:8000/api/scan-live", {
+      const resp = await fetch("https://vedansh0110-sentinel-ai-backend.hf.space/api/scan-live", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: liveCode, filename: "live_editor.py" })
