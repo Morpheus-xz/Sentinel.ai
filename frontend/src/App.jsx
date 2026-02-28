@@ -200,15 +200,18 @@ function App() {
     }
   }, [])
 
-  const handleUpload = async () => {
+const handleUpload = async () => {
     if (!file) return
     setLoading(true)
     const formData = new FormData()
     formData.append("file", file)
     try {
-      const resp = await fetch("https://vedansh0110-sentinel-ai-backend.hf.space/api/scan", { method: "POST", body: formData })
+      const baseUrl = import.meta.env.VITE_API_URL || "https://vedansh0110-sentinel-ai-backend.hf.space"
+      const resp = await fetch(`${baseUrl}/api/scan`, { method: "POST", body: formData })
       const data = await resp.json()
       setTimeout(() => setResults(data), 1000)
+    } catch (error) {
+      console.error("Scan failed:", error)
     } finally {
       setTimeout(() => setLoading(false), 1000)
     }
@@ -218,13 +221,16 @@ function App() {
     if (!liveCode.trim()) return
     setLoading(true)
     try {
-      const resp = await fetch("https://vedansh0110-sentinel-ai-backend.hf.space/api/scan-live", {
+      const baseUrl = import.meta.env.VITE_API_URL || "https://vedansh0110-sentinel-ai-backend.hf.space"
+      const resp = await fetch(`${baseUrl}/api/scan-live`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: liveCode, filename: "live_editor.py" })
       })
       const data = await resp.json()
       setTimeout(() => setResults(data), 1500)
+    } catch (error) {
+      console.error("Live scan failed:", error)
     } finally {
       setTimeout(() => setLoading(false), 1500)
     }
