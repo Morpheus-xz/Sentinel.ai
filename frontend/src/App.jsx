@@ -38,80 +38,36 @@ const SentinelLogo = ({ size = 52 }) => (
       </filter>
     </defs>
 
-    {/*
-      Pentagon shield — wide, cat-ear top corners, tapers to bottom point
-      Matches reference: wide body, two protruding top corners
-    */}
     <path d="M60 6 L90 20 L104 52 C104 76 82 96 60 105 C38 96 16 76 16 52 L30 20 Z"
       stroke="url(#gold1)" strokeWidth="2" fill="rgba(212,168,90,0.04)" filter="url(#glow)"/>
 
-    {/*
-      NODE POSITIONS (matching reference exactly):
-      N1  = top-center        (60, 10)
-      N2  = top-left ear      (28, 18)
-      N3  = top-right ear     (92, 18)
-      N4  = mid-left          (14, 42)
-      N5  = mid-right         (106, 42)
-      N6  = left-orbit        (18, 62)  — on horizontal orbit ring
-      N7  = right-orbit       (102, 62) — on horizontal orbit ring
-      N8  = lower-left        (30, 82)
-      N9  = lower-right       (90, 82)
-      N10 = bottom-tip        (60, 98)
-      N11 = inner-top         (60, 28)  — where top line meets inner shape
-    */}
-
-    {/* ── Network lines (drawn BEFORE nodes so nodes sit on top) ── */}
-
-    {/* Top fan */}
     <line x1="60" y1="10" x2="28" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.95"/>
     <line x1="60" y1="10" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.95"/>
     <line x1="28" y1="18" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.8"/>
-
-    {/* Ears down to mid */}
     <line x1="28" y1="18" x2="14" y2="42" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="92" y1="18" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Top-center down to inner-top node */}
     <line x1="60" y1="10" x2="60" y2="28" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Inner-top connects across and down */}
     <line x1="60" y1="28" x2="28" y2="18" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="60" y1="28" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="60" y1="28" x2="14" y2="42" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.45"/>
     <line x1="60" y1="28" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.45"/>
-
-    {/* Mid row horizontal */}
     <line x1="14" y1="42" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="1" opacity="0.65"/>
-
-    {/* Mid to orbit level */}
     <line x1="14" y1="42" x2="18" y2="62" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="106" y1="42" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Orbit level horizontal */}
     <line x1="18" y1="62" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="1" opacity="0.6"/>
-
-    {/* Orbit to lower */}
     <line x1="18" y1="62" x2="30" y2="82" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="102" y1="62" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Lower V to tip */}
     <line x1="30" y1="82" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="30" y1="82" x2="60" y2="98" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="90" y1="82" x2="60" y2="98" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Extra cross-diagonals (visible in reference) */}
     <line x1="28" y1="18" x2="18" y2="62" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="92" y1="18" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="14" y1="42" x2="30" y2="82" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="106" y1="42" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
 
-    {/* ── Orbit rings (very prominent in reference) ── */}
-    {/* Horizontal ellipse */}
     <ellipse cx="60" cy="58" rx="38" ry="17" stroke="url(#gold1)" strokeWidth="1.4" fill="none" opacity="0.75" filter="url(#glow)"/>
-    {/* Vertical ellipse */}
     <ellipse cx="60" cy="58" rx="17" ry="36" stroke="url(#gold1)" strokeWidth="1.4" fill="none" opacity="0.5"/>
 
-    {/* ── Nodes (on top of lines) ── */}
     <circle cx="60"  cy="10" r="3.2" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="28"  cy="18" r="2.8" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="92"  cy="18" r="2.8" fill="url(#gold2)" filter="url(#nodeglow)"/>
@@ -124,16 +80,10 @@ const SentinelLogo = ({ size = 52 }) => (
     <circle cx="60"  cy="98" r="3.2" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="60"  cy="28" r="2.4" fill="url(#gold2)" filter="url(#nodeglow)"/>
 
-    {/* ── Eye ── */}
-    {/* Outer ring */}
     <circle cx="60" cy="58" r="18" stroke="url(#gold1)" strokeWidth="1.5" fill="rgba(212,168,90,0.06)" filter="url(#glow)"/>
-    {/* Iris */}
     <circle cx="60" cy="58" r="12" stroke="url(#gold1)" strokeWidth="1.2" fill="rgba(212,168,90,0.1)"/>
-    {/* Pupil */}
     <circle cx="60" cy="58" r="6.5" fill="url(#gold1)" filter="url(#nodeglow)"/>
-    {/* Crescent shadow (offset to create crescent moon look) */}
     <circle cx="57"  cy="55"  r="4"   fill="rgba(6,10,16,0.78)"/>
-    {/* Glint */}
     <circle cx="65"  cy="53"  r="2.2" fill="rgba(255,250,225,0.72)"/>
   </svg>
 )
@@ -200,7 +150,7 @@ function App() {
     }
   }, [])
 
-const handleUpload = async () => {
+  const handleUpload = async () => {
     if (!file) return
     setLoading(true)
     const formData = new FormData()
@@ -262,15 +212,12 @@ const handleUpload = async () => {
       <div className="dashboard-layout">
 
         <aside className="sidebar">
-          {/* Logo at top */}
           <div className="sidebar-logo">
             <SentinelLogo size={52} />
           </div>
 
-          {/* Creator links at bottom */}
           <div className="sidebar-bottom">
 
-            {/* Yash Bhatia */}
             <div className="creator-block">
               <div className="creator-avatar">YB</div>
               <div className="creator-popout">
@@ -286,7 +233,6 @@ const handleUpload = async () => {
               </div>
             </div>
 
-            {/* Vedansh Agarwal */}
             <div className="creator-block">
               <div className="creator-avatar">VA</div>
               <div className="creator-popout">
@@ -302,7 +248,6 @@ const handleUpload = async () => {
               </div>
             </div>
 
-            {/* Suryansh Raj Singh */}
             <div className="creator-block">
               <div className="creator-avatar">SR</div>
               <div className="creator-popout">
@@ -431,19 +376,19 @@ const handleUpload = async () => {
                     {(() => {
                       const score = results.security_score
                       const color = score < 50
-                        ? { from: '#E87A7A', to: '#C0392B', glow: 'rgba(232, 122, 122, 0.4)' }
+                        ? { main: '#E87A7A', glow: 'rgba(232, 122, 122, 0.5)' }
                         : score <= 75
-                        ? { from: '#F5C842', to: '#D4A017', glow: 'rgba(245, 200, 66, 0.4)' }
-                        : { from: '#6FCF97', to: '#27AE60', glow: 'rgba(111, 207, 151, 0.4)' }
+                        ? { main: '#F5C842', glow: 'rgba(245, 200, 66, 0.5)' }
+                        : { main: '#6FCF97', glow: 'rgba(111, 207, 151, 0.5)' }
                       return (
                         <motion.div
                           initial={{ scale: 0 }} animate={{ scale: 1 }}
                           style={{
-                            fontSize: '6rem', fontWeight: '800', lineHeight: 1,
-                            background: `linear-gradient(135deg, ${color.from} 0%, ${color.to} 100%)`,
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            filter: `drop-shadow(0 0 20px ${color.glow})`
+                            fontSize: '6rem',
+                            fontWeight: '800',
+                            lineHeight: 1,
+                            color: color.main,
+                            textShadow: `0 0 30px ${color.glow}, 0 0 60px ${color.glow}`,
                           }}
                         >
                           {score}
@@ -496,7 +441,9 @@ const handleUpload = async () => {
                   let badgeClass = 'badge-dep-cve'
                   let badgeLabel = 'DEPENDENCY_CVE'
                   let BadgeIcon = Package
-                  if (/inject|prompt|sanitiz/i.test(type + issue.explanation)) {
+                  if (type === 'DATA_FLOW_EXPLOIT') {
+                    badgeClass = 'badge-prompt'; badgeLabel = 'DATA_FLOW_EXPLOIT'; BadgeIcon = AlertOctagon
+                  } else if (/inject|prompt|sanitiz/i.test(type + issue.explanation)) {
                     badgeClass = 'badge-prompt'; badgeLabel = 'PROMPT_INJECTION'; BadgeIcon = Brain
                   } else if (/secret|key|token|api.?key|leak/i.test(type + issue.explanation)) {
                     badgeClass = 'badge-secret'; badgeLabel = 'SECRET_LEAK'; BadgeIcon = Key
