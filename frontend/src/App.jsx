@@ -249,7 +249,7 @@ function App() {
             </div>
 
             <div className="creator-block">
-              <div className="creator-avatar">SR</div>
+              <div className="creator-avatar">VR</div>
               <div className="creator-popout">
                 <div className="creator-name">Vinay Rathore</div>
                 <div className="creator-links">
