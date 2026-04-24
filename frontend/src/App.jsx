@@ -218,20 +218,20 @@ function App() {
 
           <div className="sidebar-bottom">
 
-            <div className="creator-block">
-              <div className="creator-avatar">YB</div>
-              <div className="creator-popout">
-                <div className="creator-name">Yash Bhatia</div>
-                <div className="creator-links">
-                  <a href="https://www.linkedin.com/in/yash-bhatia-21790b223/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
-                    <LinkedInIcon /> LinkedIn
-                  </a>
-                  <a href="https://github.com/atlantis-04" target="_blank" rel="noopener noreferrer" className="creator-link github">
-                    <GitHubIcon /> GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
+            {/*<div className="creator-block">*/}
+            {/*  <div className="creator-avatar">YB</div>*/}
+            {/*  <div className="creator-popout">*/}
+            {/*    <div className="creator-name">Yash Bhatia</div>*/}
+            {/*    <div className="creator-links">*/}
+            {/*      <a href="https://www.linkedin.com/in/yash-bhatia-21790b223/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">*/}
+            {/*        <LinkedInIcon /> LinkedIn*/}
+            {/*      </a>*/}
+            {/*      <a href="https://github.com/atlantis-04" target="_blank" rel="noopener noreferrer" className="creator-link github">*/}
+            {/*        <GitHubIcon /> GitHub*/}
+            {/*      </a>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
 
             <div className="creator-block">
               <div className="creator-avatar">VA</div>
@@ -251,12 +251,12 @@ function App() {
             <div className="creator-block">
               <div className="creator-avatar">SR</div>
               <div className="creator-popout">
-                <div className="creator-name">Suryansh Raj Singh</div>
+                <div className="creator-name">Vinay Rathore</div>
                 <div className="creator-links">
-                  <a href="https://www.linkedin.com/in/suryansh-raj-singh-a40b09328/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
+                  <a href="https://www.linkedin.com/in/vinay-rathore-14249b328/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
                     <LinkedInIcon /> LinkedIn
                   </a>
-                  <a href="https://github.com/suryanshhh445" target="_blank" rel="noopener noreferrer" className="creator-link github">
+                  <a href="https://github.com/vinayR-cmd" target="_blank" rel="noopener noreferrer" className="creator-link github">
                     <GitHubIcon /> GitHub
                   </a>
                 </div>
