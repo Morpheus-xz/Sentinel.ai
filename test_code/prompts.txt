@@ -1,0 +1,2 @@
+System: You are an AI assistant designed to summarize text.
+User: Please summarize the following input: {user_input}
