@@ -16,7 +16,6 @@ const ScanLine = ({ scanning }) => (
   />
 )
 
-/* ── Sentinel-AI Neural Eye Logo ── */
 const SentinelLogo = ({ size = 52 }) => (
   <svg width={size} height={size} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -89,11 +88,9 @@ const SentinelLogo = ({ size = 52 }) => (
   </svg>
 )
 
-// ── HISTORY STORAGE KEY ──────────────────────────────────────────────
 const HISTORY_KEY = 'sentinel_scan_history'
-const MAX_HISTORY = 20   // keep last 20 scans — prevents localStorage bloat
+const MAX_HISTORY = 20
 
-// ── HELPER: score → color (reused in history list + main panel) ──────
 const scoreColor = (score) =>
   score < 50
     ? { main: '#E87A7A', glow: 'rgba(232,122,122,0.5)' }
@@ -101,7 +98,6 @@ const scoreColor = (score) =>
     ? { main: '#F5C842', glow: 'rgba(245,200,66,0.5)' }
     : { main: '#6FCF97', glow: 'rgba(111,207,151,0.5)' }
 
-// ── HELPER: compute diff between two issue arrays ────────────────────
 const computeDiff = (currentIssues, previousIssues) => {
   const sig = (i) => `${i.file}:${i.line}:${i.type}`
   const currentSigs  = new Set(currentIssues.map(sig))
@@ -113,7 +109,6 @@ const computeDiff = (currentIssues, previousIssues) => {
   }
 }
 
-// ── HISTORY PANEL — module-level: never re-creates on parent render ──
 const HistoryPanel = ({ history, selectedHistory, onSelect, onClear }) => {
   if (history.length === 0) {
     return (
@@ -215,7 +210,6 @@ const HistoryPanel = ({ history, selectedHistory, onSelect, onClear }) => {
   )
 }
 
-// ── DIFF SECTION — module-level: stable, no re-creation ─────────────
 const DiffSection = ({ current, previous }) => {
   if (!previous) return null
   const diff = computeDiff(current.issues, previous.issues)
@@ -275,8 +269,6 @@ function App() {
   const [results, setResults]         = useState(null)
   const [cursorPos, setCursorPos]     = useState({ x: 0, y: 0 })
   const [cursorHovered, setCursorHovered] = useState(false)
-
-  // ── NEW STATE: history list + which entry is selected ────────────
   const [history, setHistory]               = useState([])
   const [selectedHistory, setSelectedHistory] = useState(null)
 
@@ -334,7 +326,6 @@ function App() {
     }
   }, [])
 
-  // ── NEW: load history from localStorage on mount ─────────────────
   useEffect(() => {
     try {
       const stored = localStorage.getItem(HISTORY_KEY)
@@ -342,7 +333,6 @@ function App() {
     } catch (_) {}
   }, [])
 
-  // ── NEW: save a completed scan to history ─────────────────────────
   const saveToHistory = (data, label) => {
     const entry = {
       id:        Date.now(),
@@ -360,7 +350,6 @@ function App() {
     })
   }
 
-  // ── NEW: clear all history ────────────────────────────────────────
   const clearHistory = () => {
     setHistory([])
     setSelectedHistory(null)
@@ -378,7 +367,7 @@ function App() {
       const data = await resp.json()
       setTimeout(() => {
         setResults(data)
-        saveToHistory(data, file.name)   // ← NEW: auto-save after upload scan
+        saveToHistory(data, file.name)
       }, 1000)
     } catch (error) {
       console.error("Scan failed:", error)
@@ -400,7 +389,7 @@ function App() {
       const data = await resp.json()
       setTimeout(() => {
         setResults(data)
-        saveToHistory(data, 'live_editor.py')   // ← NEW: auto-save after live scan
+        saveToHistory(data, 'live_editor.py')
       }, 1500)
     } catch (error) {
       console.error("Live scan failed:", error)
@@ -409,7 +398,6 @@ function App() {
     }
   }
 
-  // ── NEW: load a history entry into the results panel ─────────────
   const loadHistoryEntry = (entry) => {
     setSelectedHistory(entry)
     setResults({ security_score: entry.score, issues: entry.issues, mode: entry.mode })
@@ -507,7 +495,6 @@ function App() {
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
             >
               <div className="tab-switcher">
-                {/* ── CHANGE: added 'history' to tab list ── */}
                 {['live', 'upload', 'history'].map((tab) => (
                   <button
                     key={tab}
@@ -557,7 +544,6 @@ function App() {
                       </button>
                     </motion.div>
                   ) : (
-                    /* ── NEW: history tab panel ── */
                     <motion.div
                       key="history"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -574,7 +560,6 @@ function App() {
                 </AnimatePresence>
               </div>
 
-              {/* Hide the scan button when on history tab */}
               {activeTab !== 'history' && (
                 <button
                   className="cyber-btn"
@@ -606,7 +591,7 @@ function App() {
                   <div className="score-container">
                     {(() => {
                       const score = results.security_score
-                      const color = scoreColor(score)   // ← uses extracted helper
+                      const color = scoreColor(score)
                       return (
                         <motion.div
                           initial={{ scale: 0 }} animate={{ scale: 1 }}
@@ -625,7 +610,6 @@ function App() {
                     <div className="score-label">INTEGRITY SCORE</div>
                   </div>
 
-                  {/* ── NEW: show "VIEWING HISTORY" badge when replaying a past scan ── */}
                   {selectedHistory && (
                     <div style={{
                       textAlign: 'center', marginBottom: '8px',
@@ -670,6 +654,7 @@ function App() {
 
           </div>
 
+          {/* ── DETECTED ANOMALIES ── */}
           <AnimatePresence>
             {results && results.issues.length > 0 && (
               <motion.div className="vuln-feed">
@@ -736,7 +721,80 @@ function App() {
             )}
           </AnimatePresence>
 
-          {/* ── NEW: diff analysis shown below vuln-feed when viewing history ── */}
+          {/* ── ATTACK CHAIN ANALYSIS ── */}
+          <AnimatePresence>
+            {results && results.attack_chains && results.attack_chains.length > 0 && (
+              <motion.div className="vuln-feed" style={{marginTop: '2rem'}}>
+                <div className="panel-header" style={{marginBottom: '1rem'}}>
+                  <AlertOctagon size={18} color="var(--color-light)" />
+                  <h3>ATTACK CHAIN ANALYSIS</h3>
+                  <span style={{fontSize:'0.7rem', color:'var(--color-light)', opacity:0.5, marginLeft:'auto', fontFamily:'JetBrains Mono'}}>
+                    {results.attack_chains.length} CHAINS CONSTRUCTED
+                  </span>
+                </div>
+
+                {results.attack_chains.map((chain, idx) => (
+                  <motion.div key={idx} className="vuln-card"
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.08 }}
+                    style={{borderLeft: '3px solid #E87A7A', marginBottom: '1.5rem'}}
+                  >
+                    <div className="vuln-card-header">
+                      <div style={{display:'flex', alignItems:'center', gap:'10px', flexWrap:'wrap'}}>
+                        <span style={{background:'rgba(163,45,45,0.3)', color:'#F7C1C1', border:'1px solid #A32D2D', borderRadius:'4px', padding:'3px 10px', fontSize:'0.7rem', fontFamily:'JetBrains Mono', fontWeight:600, letterSpacing:'0.05em'}}>
+                          {chain.total_severity} CHAIN
+                        </span>
+                        <span style={{fontFamily:'JetBrains Mono', fontSize:'0.82rem', color:'rgba(250,250,250,0.9)'}}>{chain.title}</span>
+                      </div>
+                      <span style={{color:'var(--color-light)', opacity:0.6, fontSize:'0.75rem', fontFamily:'JetBrains Mono'}}>
+                        {chain.steps.length} STEPS
+                      </span>
+                    </div>
+
+                    <div style={{padding:'0.75rem 0', borderBottom:'1px solid rgba(255,255,255,0.07)', marginBottom:'0.75rem'}}>
+                      <div style={{fontSize:'0.7rem', color:'rgba(250,250,250,0.4)', marginBottom:'4px', fontFamily:'JetBrains Mono', letterSpacing:'0.06em'}}>ATTACKER GOAL</div>
+                      <div style={{fontSize:'0.88rem', color:'rgba(250,250,250,0.85)'}}>{chain.goal}</div>
+                    </div>
+
+                    {chain.steps.map((step, sidx) => (
+                      <div key={sidx} style={{padding:'0.6rem 0', borderBottom:'1px solid rgba(255,255,255,0.04)'}}>
+                        <div style={{display:'flex', alignItems:'center', gap:'8px', marginBottom:'6px'}}>
+                          <span style={{background:'rgba(232,122,122,0.15)', color:'#E87A7A', border:'1px solid rgba(232,122,122,0.3)', borderRadius:'3px', padding:'1px 7px', fontSize:'0.65rem', fontFamily:'JetBrains Mono'}}>
+                            STEP {sidx + 1}
+                          </span>
+                          <span style={{fontSize:'0.83rem', fontWeight:500, color:'rgba(250,250,250,0.9)'}}>{step.title}</span>
+                          <span style={{marginLeft:'auto', fontSize:'0.65rem', color:'rgba(250,250,250,0.3)', fontFamily:'JetBrains Mono'}}>cost: {step.attacker_cost}</span>
+                        </div>
+                        <p style={{fontSize:'0.78rem', color:'rgba(250,250,250,0.55)', margin:'0 0 8px', lineHeight:1.5}}>{step.description}</p>
+                        <code style={{display:'block', background:'rgba(0,0,0,0.35)', padding:'8px 12px', borderRadius:'4px', fontSize:'0.72rem', color:'#A5D6A7', fontFamily:'JetBrains Mono', whiteSpace:'pre-wrap', lineHeight:1.6}}>
+                          {step.code}
+                        </code>
+                        {step.impact && (
+                          <div style={{fontSize:'0.72rem', color:'#E87A7A', marginTop:'6px', fontStyle:'italic'}}>
+                            → {step.impact}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+
+                    <div style={{paddingTop:'0.75rem', display:'flex', flexDirection:'column', gap:'4px'}}>
+                      <div style={{fontSize:'0.7rem', color:'rgba(250,250,250,0.35)', fontFamily:'JetBrains Mono'}}>
+                        ⏱ {chain.estimated_time}
+                      </div>
+                      <div style={{fontSize:'0.7rem', color:'rgba(250,250,250,0.35)', fontFamily:'JetBrains Mono'}}>
+                        👁 Detection likelihood: {chain.detection_likelihood}
+                      </div>
+                      <div style={{fontSize:'0.7rem', color:'rgba(250,250,250,0.35)', marginTop:'2px'}}>
+                        📖 {chain.real_world_example}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── DIFF ANALYSIS ── */}
           {selectedHistory && results && (() => {
             const idx = history.findIndex(h => h.id === selectedHistory.id)
             const previousEntry = history[idx + 1]
