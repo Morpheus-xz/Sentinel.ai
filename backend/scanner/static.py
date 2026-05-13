@@ -3,7 +3,7 @@ import re
 RULES = {
     "hardcoded_secret": {
         # Captures variable name (group 1) and secret value (group 2)
-        "pattern": r"(?i)([a-zA-Z0-9_]*(?:api_key|api_secret|password|passwd|secret|token|auth|credential|private_key)[a-zA-Z0-9_]*)\s*=\s*['\"]([^'\"]{5,})['\"]",
+        "pattern": r'(?i)([a-zA-Z0-9_]*(?:api_key|api_secret|password|passwd|secret|token|auth|credential|private_key|database_url|connection_string)[a-zA-Z0-9_]*)\s*=\s*["\']([^"\']{8,})["\']',
         "severity": "CRITICAL",
         "explanation": "Hardcoded secret detected — sensitive credentials exposed in source code.",
         "teach_back": (

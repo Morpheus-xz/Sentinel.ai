@@ -162,10 +162,9 @@ async def scan_project(file: UploadFile = File(...)):
     return results
 
 
-# ── LIVE SCAN WITH ATTACK CHAINS ─────────────────────────────────────────────
-@app.post("/api/scan-live-full")
-async def scan_live_full(snippet: CodeSnippet):
-    """Live editor scan that also returns attack chain analysis."""
+@app.post("/api/scan-chains")
+async def scan_with_chains(snippet: CodeSnippet):
+    """Live scan that also returns full attack chain analysis."""
     if len(snippet.code) > 100_000:
         raise HTTPException(status_code=413, detail="Code snippet too large.")
 
@@ -177,11 +176,9 @@ async def scan_live_full(snippet: CodeSnippet):
 
     semantic_results = {"issues": [], "telemetries": []}
     if onnx_session:
-        from scanner.semantic import scan_file_semantic
         semantic_results = scan_file_semantic(snippet.filename, code_lines, onnx_session)
 
     raw_issues = taint_results + static_results + semantic_results["issues"]
-
     seen = {}
     all_issues = []
     for issue in raw_issues:
@@ -196,14 +193,13 @@ async def scan_live_full(snippet: CodeSnippet):
             all_issues.append(issue)
 
     from scanner.attack_chain import run_attack_chain_analysis
-    from scanner.engine import calculate_score
     attack_data = run_attack_chain_analysis(all_issues, extracted)
     chain_penalty = attack_data.get("chain_penalty", 0)
     final_score = calculate_score(all_issues, chain_penalty)
 
     return {
         "security_score": final_score,
-        "mode": "LIVE_INFERENCE",
+        "mode": "LIVE_WITH_ATTACK_CHAINS",
         "issues": all_issues,
         "attack_chains": attack_data.get("chains", []),
         "recon_summary": attack_data.get("recon", {}),

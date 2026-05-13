@@ -16,19 +16,16 @@ def calculate_score(issues: list, chain_penalty: int = 0) -> int:
 def _dedup_issues(raw_issues: list) -> list:
     SEVERITY_RANK = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1}
     best = {}
-
     for issue in raw_issues:
         key = f"{issue.get('file')}:{issue.get('line')}"
         is_taint = issue.get("type") == "DATA_FLOW_EXPLOIT"
         rank = 99 if is_taint else SEVERITY_RANK.get(issue.get("severity", "LOW"), 0)
-
         if key not in best:
             best[key] = (rank, issue)
         else:
             existing_rank, _ = best[key]
             if rank > existing_rank:
                 best[key] = (rank, issue)
-
     return [issue for _, issue in best.values()]
 
 
@@ -84,7 +81,7 @@ def analyze_project(extracted_files: dict, onnx_session) -> dict:
 
     all_issues = _dedup_issues(raw_issues)
 
-    # ── ATTACK CHAIN ANALYSIS (new layer on top of existing scanners) ─────────
+    # Attack chain analysis — runs on top of all 5 existing scanners
     attack_data = run_attack_chain_analysis(all_issues, extracted_files)
     chain_penalty = attack_data.get("chain_penalty", 0)
 

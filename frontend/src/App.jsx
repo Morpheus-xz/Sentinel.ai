@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   AlertOctagon, Terminal, UploadCloud,
   Cpu, Activity, AlertTriangle, Zap,
-  CheckCircle2, Package, Key, Brain
+  CheckCircle2, Package, Key, Brain,
+  History, Trash2, ChevronRight
 } from 'lucide-react'
 import './App.css'
 
@@ -38,80 +39,36 @@ const SentinelLogo = ({ size = 52 }) => (
       </filter>
     </defs>
 
-    {/*
-      Pentagon shield — wide, cat-ear top corners, tapers to bottom point
-      Matches reference: wide body, two protruding top corners
-    */}
     <path d="M60 6 L90 20 L104 52 C104 76 82 96 60 105 C38 96 16 76 16 52 L30 20 Z"
       stroke="url(#gold1)" strokeWidth="2" fill="rgba(212,168,90,0.04)" filter="url(#glow)"/>
 
-    {/*
-      NODE POSITIONS (matching reference exactly):
-      N1  = top-center        (60, 10)
-      N2  = top-left ear      (28, 18)
-      N3  = top-right ear     (92, 18)
-      N4  = mid-left          (14, 42)
-      N5  = mid-right         (106, 42)
-      N6  = left-orbit        (18, 62)  — on horizontal orbit ring
-      N7  = right-orbit       (102, 62) — on horizontal orbit ring
-      N8  = lower-left        (30, 82)
-      N9  = lower-right       (90, 82)
-      N10 = bottom-tip        (60, 98)
-      N11 = inner-top         (60, 28)  — where top line meets inner shape
-    */}
-
-    {/* ── Network lines (drawn BEFORE nodes so nodes sit on top) ── */}
-
-    {/* Top fan */}
     <line x1="60" y1="10" x2="28" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.95"/>
     <line x1="60" y1="10" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.95"/>
     <line x1="28" y1="18" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.8"/>
-
-    {/* Ears down to mid */}
     <line x1="28" y1="18" x2="14" y2="42" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="92" y1="18" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Top-center down to inner-top node */}
     <line x1="60" y1="10" x2="60" y2="28" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Inner-top connects across and down */}
     <line x1="60" y1="28" x2="28" y2="18" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="60" y1="28" x2="92" y2="18" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="60" y1="28" x2="14" y2="42" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.45"/>
     <line x1="60" y1="28" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.45"/>
-
-    {/* Mid row horizontal */}
     <line x1="14" y1="42" x2="106" y2="42" stroke="url(#gold1)" strokeWidth="1" opacity="0.65"/>
-
-    {/* Mid to orbit level */}
     <line x1="14" y1="42" x2="18" y2="62" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="106" y1="42" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Orbit level horizontal */}
     <line x1="18" y1="62" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="1" opacity="0.6"/>
-
-    {/* Orbit to lower */}
     <line x1="18" y1="62" x2="30" y2="82" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="102" y1="62" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Lower V to tip */}
     <line x1="30" y1="82" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="1" opacity="0.7"/>
     <line x1="30" y1="82" x2="60" y2="98" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
     <line x1="90" y1="82" x2="60" y2="98" stroke="url(#gold1)" strokeWidth="1.1" opacity="0.9"/>
-
-    {/* Extra cross-diagonals (visible in reference) */}
     <line x1="28" y1="18" x2="18" y2="62" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="92" y1="18" x2="102" y2="62" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="14" y1="42" x2="30" y2="82" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
     <line x1="106" y1="42" x2="90" y2="82" stroke="url(#gold1)" strokeWidth="0.8" opacity="0.35"/>
 
-    {/* ── Orbit rings (very prominent in reference) ── */}
-    {/* Horizontal ellipse */}
     <ellipse cx="60" cy="58" rx="38" ry="17" stroke="url(#gold1)" strokeWidth="1.4" fill="none" opacity="0.75" filter="url(#glow)"/>
-    {/* Vertical ellipse */}
     <ellipse cx="60" cy="58" rx="17" ry="36" stroke="url(#gold1)" strokeWidth="1.4" fill="none" opacity="0.5"/>
 
-    {/* ── Nodes (on top of lines) ── */}
     <circle cx="60"  cy="10" r="3.2" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="28"  cy="18" r="2.8" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="92"  cy="18" r="2.8" fill="url(#gold2)" filter="url(#nodeglow)"/>
@@ -124,29 +81,206 @@ const SentinelLogo = ({ size = 52 }) => (
     <circle cx="60"  cy="98" r="3.2" fill="url(#gold2)" filter="url(#nodeglow)"/>
     <circle cx="60"  cy="28" r="2.4" fill="url(#gold2)" filter="url(#nodeglow)"/>
 
-    {/* ── Eye ── */}
-    {/* Outer ring */}
     <circle cx="60" cy="58" r="18" stroke="url(#gold1)" strokeWidth="1.5" fill="rgba(212,168,90,0.06)" filter="url(#glow)"/>
-    {/* Iris */}
     <circle cx="60" cy="58" r="12" stroke="url(#gold1)" strokeWidth="1.2" fill="rgba(212,168,90,0.1)"/>
-    {/* Pupil */}
     <circle cx="60" cy="58" r="6.5" fill="url(#gold1)" filter="url(#nodeglow)"/>
-    {/* Crescent shadow (offset to create crescent moon look) */}
     <circle cx="57"  cy="55"  r="4"   fill="rgba(6,10,16,0.78)"/>
-    {/* Glint */}
     <circle cx="65"  cy="53"  r="2.2" fill="rgba(255,250,225,0.72)"/>
   </svg>
 )
 
+// ── HISTORY STORAGE KEY ──────────────────────────────────────────────
+const HISTORY_KEY = 'sentinel_scan_history'
+const MAX_HISTORY = 20   // keep last 20 scans — prevents localStorage bloat
+
+// ── HELPER: score → color (reused in history list + main panel) ──────
+const scoreColor = (score) =>
+  score < 50
+    ? { main: '#E87A7A', glow: 'rgba(232,122,122,0.5)' }
+    : score <= 75
+    ? { main: '#F5C842', glow: 'rgba(245,200,66,0.5)' }
+    : { main: '#6FCF97', glow: 'rgba(111,207,151,0.5)' }
+
+// ── HELPER: compute diff between two issue arrays ────────────────────
+const computeDiff = (currentIssues, previousIssues) => {
+  const sig = (i) => `${i.file}:${i.line}:${i.type}`
+  const currentSigs  = new Set(currentIssues.map(sig))
+  const previousSigs = new Set(previousIssues.map(sig))
+  return {
+    fixed:     previousIssues.filter(i => !currentSigs.has(sig(i))),
+    newIssues: currentIssues.filter(i =>  !previousSigs.has(sig(i))),
+    unchanged: currentIssues.filter(i =>  previousSigs.has(sig(i))),
+  }
+}
+
+// ── HISTORY PANEL — module-level: never re-creates on parent render ──
+const HistoryPanel = ({ history, selectedHistory, onSelect, onClear }) => {
+  if (history.length === 0) {
+    return (
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+        justifyContent: 'center', height: '100%', gap: '1rem', opacity: 0.4,
+        pointerEvents: 'none'
+      }}>
+        <History size={48} color="var(--color-light)" />
+        <p style={{ fontFamily: 'JetBrains Mono', fontSize: '0.75rem', color: 'rgba(250,250,250,0.5)', textAlign: 'center' }}>
+          NO SCAN HISTORY YET<br/>RUN A SCAN TO BEGIN TRACKING
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        marginBottom: '0.75rem', flexShrink: 0
+      }}>
+        <span style={{ fontFamily: 'JetBrains Mono', fontSize: '0.7rem', color: 'rgba(250,250,250,0.4)', letterSpacing: '0.08em' }}>
+          {history.length} SCAN{history.length !== 1 ? 'S' : ''} STORED
+        </span>
+        <button onClick={onClear} style={{
+          background: 'transparent', border: 'none', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', gap: '4px',
+          color: 'rgba(232,122,122,0.7)', fontSize: '0.7rem', fontFamily: 'JetBrains Mono', padding: '2px 6px'
+        }}>
+          <Trash2 size={11} /> CLEAR ALL
+        </button>
+      </div>
+
+      <div style={{ overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {history.map((entry, idx) => {
+          const color      = scoreColor(entry.score)
+          const isSelected = selectedHistory?.id === entry.id
+          const dt         = new Date(entry.timestamp)
+          const timeStr    = dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          const dateStr    = dt.toLocaleDateString([], { month: 'short', day: 'numeric' })
+
+          let diffBadge = null
+          if (idx < history.length - 1) {
+            const prev  = history[idx + 1]
+            const diff  = computeDiff(entry.issues, prev.issues)
+            const delta = entry.score - prev.score
+            diffBadge = (
+              <span style={{
+                fontSize: '0.6rem', fontFamily: 'JetBrains Mono',
+                color: delta >= 0 ? '#6FCF97' : '#E87A7A', marginLeft: '6px'
+              }}>
+                {delta >= 0 ? '▲' : '▼'}{Math.abs(delta)} · +{diff.newIssues.length} ✓{diff.fixed.length}
+              </span>
+            )
+          }
+
+          return (
+            <div
+              key={entry.id}
+              onClick={() => onSelect(entry)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '10px 12px',
+                background: isSelected ? 'rgba(212,168,90,0.08)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${isSelected ? 'rgba(212,168,90,0.35)' : 'rgba(255,255,255,0.06)'}`,
+                borderRadius: '6px', cursor: 'pointer', flexShrink: 0,
+                transition: 'background 0.15s, border-color 0.15s',
+              }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <span style={{
+                    fontFamily: 'JetBrains Mono', fontSize: '0.72rem', color: 'rgba(250,250,250,0.85)',
+                    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '160px'
+                  }}>
+                    {entry.label}
+                  </span>
+                  {diffBadge}
+                </div>
+                <span style={{ fontFamily: 'JetBrains Mono', fontSize: '0.6rem', color: 'rgba(250,250,250,0.3)' }}>
+                  {dateStr} · {timeStr} · {entry.issueCount} issue{entry.issueCount !== 1 ? 's' : ''}
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                <span style={{
+                  fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '1rem',
+                  color: color.main, textShadow: `0 0 12px ${color.glow}`
+                }}>
+                  {entry.score}
+                </span>
+                <ChevronRight size={12} color="rgba(250,250,250,0.25)" />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ── DIFF SECTION — module-level: stable, no re-creation ─────────────
+const DiffSection = ({ current, previous }) => {
+  if (!previous) return null
+  const diff = computeDiff(current.issues, previous.issues)
+  if (diff.fixed.length === 0 && diff.newIssues.length === 0) return null
+
+  return (
+    <div className="vuln-feed" style={{ marginTop: '1rem' }}>
+      <div className="panel-header" style={{ marginBottom: '1rem' }}>
+        <Activity size={18} color="var(--color-light)" />
+        <h3>DELTA ANALYSIS vs PREVIOUS SCAN</h3>
+      </div>
+
+      {diff.newIssues.length > 0 && (
+        <div style={{ marginBottom: '1rem' }}>
+          <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.7rem', color: '#E87A7A', marginBottom: '6px', letterSpacing: '0.08em' }}>
+            ▲ {diff.newIssues.length} NEW ISSUE{diff.newIssues.length !== 1 ? 'S' : ''} INTRODUCED
+          </div>
+          {diff.newIssues.map((issue, idx) => (
+            <div key={idx} style={{
+              padding: '8px 12px', marginBottom: '4px',
+              background: 'rgba(232,122,122,0.06)', border: '1px solid rgba(232,122,122,0.2)',
+              borderRadius: '6px', fontFamily: 'JetBrains Mono', fontSize: '0.7rem', color: 'rgba(250,250,250,0.7)'
+            }}>
+              <span style={{ color: '#E87A7A' }}>+ NEW</span> &nbsp;
+              {issue.file} LN {issue.line} — {issue.type}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {diff.fixed.length > 0 && (
+        <div>
+          <div style={{ fontFamily: 'JetBrains Mono', fontSize: '0.7rem', color: '#6FCF97', marginBottom: '6px', letterSpacing: '0.08em' }}>
+            ✓ {diff.fixed.length} ISSUE{diff.fixed.length !== 1 ? 'S' : ''} RESOLVED
+          </div>
+          {diff.fixed.map((issue, idx) => (
+            <div key={idx} style={{
+              padding: '8px 12px', marginBottom: '4px',
+              background: 'rgba(111,207,151,0.06)', border: '1px solid rgba(111,207,151,0.2)',
+              borderRadius: '6px', fontFamily: 'JetBrains Mono', fontSize: '0.7rem', color: 'rgba(250,250,250,0.7)'
+            }}>
+              <span style={{ color: '#6FCF97' }}>✓ FIXED</span> &nbsp;
+              {issue.file} LN {issue.line} — {issue.type}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function App() {
-  const [activeTab, setActiveTab] = useState('live')
-  const [liveCode, setLiveCode] = useState('')
-  const [file, setFile] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const [activeTab, setActiveTab]     = useState('live')
+  const [liveCode, setLiveCode]       = useState('')
+  const [file, setFile]               = useState(null)
+  const [loading, setLoading]         = useState(false)
+  const [results, setResults]         = useState(null)
+  const [cursorPos, setCursorPos]     = useState({ x: 0, y: 0 })
   const [cursorHovered, setCursorHovered] = useState(false)
-  const vantaRef = useRef(null)
+
+  // ── NEW STATE: history list + which entry is selected ────────────
+  const [history, setHistory]               = useState([])
+  const [selectedHistory, setSelectedHistory] = useState(null)
+
+  const vantaRef    = useRef(null)
   const vantaEffect = useRef(null)
 
   useEffect(() => {
@@ -200,7 +334,40 @@ function App() {
     }
   }, [])
 
-const handleUpload = async () => {
+  // ── NEW: load history from localStorage on mount ─────────────────
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(HISTORY_KEY)
+      if (stored) setHistory(JSON.parse(stored))
+    } catch (_) {}
+  }, [])
+
+  // ── NEW: save a completed scan to history ─────────────────────────
+  const saveToHistory = (data, label) => {
+    const entry = {
+      id:        Date.now(),
+      timestamp: new Date().toISOString(),
+      label:     label || 'live_editor.py',
+      score:     data.security_score,
+      issueCount: data.issues.length,
+      issues:    data.issues,
+      mode:      data.mode || 'LIVE_INFERENCE',
+    }
+    setHistory(prev => {
+      const updated = [entry, ...prev].slice(0, MAX_HISTORY)
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(updated)) } catch (_) {}
+      return updated
+    })
+  }
+
+  // ── NEW: clear all history ────────────────────────────────────────
+  const clearHistory = () => {
+    setHistory([])
+    setSelectedHistory(null)
+    try { localStorage.removeItem(HISTORY_KEY) } catch (_) {}
+  }
+
+  const handleUpload = async () => {
     if (!file) return
     setLoading(true)
     const formData = new FormData()
@@ -209,7 +376,10 @@ const handleUpload = async () => {
       const baseUrl = import.meta.env.VITE_API_URL || "https://vedansh0110-sentinel-ai-backend.hf.space"
       const resp = await fetch(`${baseUrl}/api/scan`, { method: "POST", body: formData })
       const data = await resp.json()
-      setTimeout(() => setResults(data), 1000)
+      setTimeout(() => {
+        setResults(data)
+        saveToHistory(data, file.name)   // ← NEW: auto-save after upload scan
+      }, 1000)
     } catch (error) {
       console.error("Scan failed:", error)
     } finally {
@@ -228,12 +398,21 @@ const handleUpload = async () => {
         body: JSON.stringify({ code: liveCode, filename: "live_editor.py" })
       })
       const data = await resp.json()
-      setTimeout(() => setResults(data), 1500)
+      setTimeout(() => {
+        setResults(data)
+        saveToHistory(data, 'live_editor.py')   // ← NEW: auto-save after live scan
+      }, 1500)
     } catch (error) {
       console.error("Live scan failed:", error)
     } finally {
       setTimeout(() => setLoading(false), 1500)
     }
+  }
+
+  // ── NEW: load a history entry into the results panel ─────────────
+  const loadHistoryEntry = (entry) => {
+    setSelectedHistory(entry)
+    setResults({ security_score: entry.score, issues: entry.issues, mode: entry.mode })
   }
 
   const LinkedInIcon = () => (
@@ -262,31 +441,12 @@ const handleUpload = async () => {
       <div className="dashboard-layout">
 
         <aside className="sidebar">
-          {/* Logo at top */}
           <div className="sidebar-logo">
             <SentinelLogo size={52} />
           </div>
 
-          {/* Creator links at bottom */}
           <div className="sidebar-bottom">
 
-            {/* Yash Bhatia */}
-            <div className="creator-block">
-              <div className="creator-avatar">YB</div>
-              <div className="creator-popout">
-                <div className="creator-name">Yash Bhatia</div>
-                <div className="creator-links">
-                  <a href="https://www.linkedin.com/in/yash-bhatia-21790b223/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
-                    <LinkedInIcon /> LinkedIn
-                  </a>
-                  <a href="https://github.com/atlantis-04" target="_blank" rel="noopener noreferrer" className="creator-link github">
-                    <GitHubIcon /> GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Vedansh Agarwal */}
             <div className="creator-block">
               <div className="creator-avatar">VA</div>
               <div className="creator-popout">
@@ -302,16 +462,15 @@ const handleUpload = async () => {
               </div>
             </div>
 
-            {/* Suryansh Raj Singh */}
             <div className="creator-block">
-              <div className="creator-avatar">SR</div>
+              <div className="creator-avatar">VR</div>
               <div className="creator-popout">
-                <div className="creator-name">Suryansh Raj Singh</div>
+                <div className="creator-name">Vinay Rathore</div>
                 <div className="creator-links">
-                  <a href="https://www.linkedin.com/in/suryansh-raj-singh-a40b09328/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
+                  <a href="https://www.linkedin.com/in/vinay-rathore-14249b328/" target="_blank" rel="noopener noreferrer" className="creator-link linkedin">
                     <LinkedInIcon /> LinkedIn
                   </a>
-                  <a href="https://github.com/suryanshhh445" target="_blank" rel="noopener noreferrer" className="creator-link github">
+                  <a href="https://github.com/vinayR-cmd" target="_blank" rel="noopener noreferrer" className="creator-link github">
                     <GitHubIcon /> GitHub
                   </a>
                 </div>
@@ -346,16 +505,16 @@ const handleUpload = async () => {
             <motion.div
               className="glass-card main-input"
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
-              onMouseEnter={() => setCursorHovered(true)} onMouseLeave={() => setCursorHovered(false)}
             >
               <div className="tab-switcher">
-                {['live', 'upload'].map((tab) => (
+                {/* ── CHANGE: added 'history' to tab list ── */}
+                {['live', 'upload', 'history'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`tab-btn ${activeTab === tab ? 'active' : ''}`}
                   >
-                    {tab === 'live' ? 'CODE SNIPPET' : 'ZIP FILE'}
+                    {tab === 'live' ? 'CODE SNIPPET' : tab === 'upload' ? 'ZIP FILE' : 'HISTORY'}
                     {activeTab === tab && (
                       <motion.div layoutId="tab-underline" className="tab-underline" />
                     )}
@@ -364,7 +523,7 @@ const handleUpload = async () => {
               </div>
 
               <div className="editor-wrapper">
-                <ScanLine scanning={loading} />
+                <ScanLine scanning={loading && activeTab !== 'history'} />
                 <AnimatePresence mode="wait">
                   {activeTab === 'live' ? (
                     <motion.textarea
@@ -376,7 +535,7 @@ const handleUpload = async () => {
                       placeholder="> Paste code snippet, prompt template, or LLM chain logic here..."
                       spellCheck="false"
                     />
-                  ) : (
+                  ) : activeTab === 'upload' ? (
                     <motion.div
                       key="upload"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -397,23 +556,40 @@ const handleUpload = async () => {
                         {file ? file.name : "SELECT FILE"}
                       </button>
                     </motion.div>
+                  ) : (
+                    /* ── NEW: history tab panel ── */
+                    <motion.div
+                      key="history"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      style={{ height: '100%' }}
+                    >
+                      <HistoryPanel
+                        history={history}
+                        selectedHistory={selectedHistory}
+                        onSelect={loadHistoryEntry}
+                        onClear={clearHistory}
+                      />
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              <button
-                className="cyber-btn"
-                onClick={activeTab === 'live' ? handleLiveScan : handleUpload}
-                disabled={loading || (activeTab === 'live' ? !liveCode : !file)}
-              >
-                {loading ? (
-                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'}}>
-                    <Activity className="spin" size={18} /> PROCESSING VECTORS
-                  </span>
-                ) : (
-                  'INITIATE DIAGNOSTIC'
-                )}
-              </button>
+              {/* Hide the scan button when on history tab */}
+              {activeTab !== 'history' && (
+                <button
+                  className="cyber-btn"
+                  onClick={activeTab === 'live' ? handleLiveScan : handleUpload}
+                  disabled={loading || (activeTab === 'live' ? !liveCode : !file)}
+                >
+                  {loading ? (
+                    <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'}}>
+                      <Activity className="spin" size={18} /> PROCESSING VECTORS
+                    </span>
+                  ) : (
+                    'INITIATE DIAGNOSTIC'
+                  )}
+                </button>
+              )}
             </motion.div>
 
             <motion.div
@@ -430,20 +606,16 @@ const handleUpload = async () => {
                   <div className="score-container">
                     {(() => {
                       const score = results.security_score
-                      const color = score < 50
-                        ? { from: '#E87A7A', to: '#C0392B', glow: 'rgba(232, 122, 122, 0.4)' }
-                        : score <= 75
-                        ? { from: '#F5C842', to: '#D4A017', glow: 'rgba(245, 200, 66, 0.4)' }
-                        : { from: '#6FCF97', to: '#27AE60', glow: 'rgba(111, 207, 151, 0.4)' }
+                      const color = scoreColor(score)   // ← uses extracted helper
                       return (
                         <motion.div
                           initial={{ scale: 0 }} animate={{ scale: 1 }}
                           style={{
-                            fontSize: '6rem', fontWeight: '800', lineHeight: 1,
-                            background: `linear-gradient(135deg, ${color.from} 0%, ${color.to} 100%)`,
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            filter: `drop-shadow(0 0 20px ${color.glow})`
+                            fontSize: '6rem',
+                            fontWeight: '800',
+                            lineHeight: 1,
+                            color: color.main,
+                            textShadow: `0 0 30px ${color.glow}, 0 0 60px ${color.glow}`,
                           }}
                         >
                           {score}
@@ -452,6 +624,20 @@ const handleUpload = async () => {
                     })()}
                     <div className="score-label">INTEGRITY SCORE</div>
                   </div>
+
+                  {/* ── NEW: show "VIEWING HISTORY" badge when replaying a past scan ── */}
+                  {selectedHistory && (
+                    <div style={{
+                      textAlign: 'center', marginBottom: '8px',
+                      fontFamily: 'JetBrains Mono', fontSize: '0.6rem',
+                      color: 'rgba(212,168,90,0.7)', letterSpacing: '0.08em'
+                    }}>
+                      ◈ REPLAYING: {new Date(selectedHistory.timestamp).toLocaleString([], {
+                        month: 'short', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                      })}
+                    </div>
+                  )}
 
                   <div className="stats-grid">
                     <div className="stat-box">
@@ -496,7 +682,9 @@ const handleUpload = async () => {
                   let badgeClass = 'badge-dep-cve'
                   let badgeLabel = 'DEPENDENCY_CVE'
                   let BadgeIcon = Package
-                  if (/inject|prompt|sanitiz/i.test(type + issue.explanation)) {
+                  if (type === 'DATA_FLOW_EXPLOIT') {
+                    badgeClass = 'badge-prompt'; badgeLabel = 'DATA_FLOW_EXPLOIT'; BadgeIcon = AlertOctagon
+                  } else if (/inject|prompt|sanitiz/i.test(type + issue.explanation)) {
                     badgeClass = 'badge-prompt'; badgeLabel = 'PROMPT_INJECTION'; BadgeIcon = Brain
                   } else if (/secret|key|token|api.?key|leak/i.test(type + issue.explanation)) {
                     badgeClass = 'badge-secret'; badgeLabel = 'SECRET_LEAK'; BadgeIcon = Key
@@ -547,6 +735,15 @@ const handleUpload = async () => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* ── NEW: diff analysis shown below vuln-feed when viewing history ── */}
+          {selectedHistory && results && (() => {
+            const idx = history.findIndex(h => h.id === selectedHistory.id)
+            const previousEntry = history[idx + 1]
+            return previousEntry
+              ? <DiffSection current={selectedHistory} previous={previousEntry} />
+              : null
+          })()}
 
         </main>
       </div>

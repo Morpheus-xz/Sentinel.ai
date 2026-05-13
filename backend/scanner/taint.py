@@ -11,7 +11,7 @@ class TaintTracker(ast.NodeVisitor):
         self.dangerous_sources = {
             'request.GET', 'request.POST', 'request.args',
             'request.form', 'request.json', 'request.data',
-            'input', 'sys.argv', 'os.environ'
+            'input', 'sys.argv', 'os.environ', 'os.environ.get', 'os.getenv'
         }
 
         # Sinks: Where untrusted data causes dangerous execution
